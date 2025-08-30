@@ -15,11 +15,10 @@ Easy controls for starting, stopping, and resetting the search
 
 **Controls**
 
-Key / Mouse               Action
-Left Mouse Button         Draw a wall
-Right Mouse Button        Remove a wall
-Space                     Start the pathfinding algorithm
-R                         Reset the grid
+Left Mouse Button -> Draw a wall
+Right Mouse Button -> Remove a wall
+Space -> Start the pathfinding algorithm
+R -> Reset the grid
 
 **Requirements**
 
