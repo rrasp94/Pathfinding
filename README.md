@@ -1,9 +1,9 @@
-Pathfinding Visualizer
+**Pathfinding Visualizer**
 
 This project is a simple pathfinding visualizer built with C++ and SFML.
 It allows you to draw walls, run a pathfinding algorithm, and visualize how the shortest path is found in real-time.
 
-Features
+**Features**
 
 Grid-based map with customizable node size
 
@@ -13,20 +13,22 @@ Real-time pathfinding visualization
 
 Easy controls for starting, stopping, and resetting the search
 
-Controls
+**Controls**
 
-Key / Mouse Action
-Left Mouse Button Draw a wall
-Right Mouse Button Remove a wall
-Space Start the pathfinding algorithm
-R Reset the grid
+Left Mouse Button -> Draw a wall
 
-Requirements
+Right Mouse Button -> Remove a wall
+
+Space -> Start the pathfinding algorithm
+
+R -> Reset the grid
+
+**Requirements**
 
 C++17 or newer
 SFML 2.5+
 
-Building
+**Building**
 
 Clone the repository
 
