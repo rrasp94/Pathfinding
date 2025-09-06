@@ -29,8 +29,7 @@ void QuadMap::Create(bool createGrid) {
         CreateGrid();
 
     if (!s_defaultTexture.getSize().x) {
-        sf::Image im;
-        im.create(sf::Vector2u(1, 1), sf::Color::White); 
+        sf::Image im(sf::Vector2u(1, 1), sf::Color::White); // SFML 3.0 konstruktor
         s_defaultTexture.loadFromImage(im);
     }
 }
@@ -69,13 +68,14 @@ void QuadMap::CreateQuad(uint32_t x, uint32_t y, uint32_t index) {
 
     /*
        5,0------1
-        |\		|
-        | \		|
-        |  \	|
-        |   \	|
-        |	 \	|
-        |	  \ |
-        |	   \|
+        |\       |
+        | \      |
+        |  \     |
+        |   \    |
+        |    \   |
+        |     \  |
+        |      \ |
+        |       \|
         4------3,2
     */
 

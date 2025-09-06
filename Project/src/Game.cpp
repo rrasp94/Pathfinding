@@ -2,6 +2,7 @@
 #include "utilities/Functions.hpp"
 
 #include <algorithm>
+#include <SFML/Window/Event.hpp> 
 
 Game::Game()
 
@@ -54,21 +55,25 @@ void Game::Run() {
 }
 
 void Game::processEvents() {
-	sf::Event ev{};
-	while (m_window.pollEvent(ev)) {
-		switch (ev.type) {
-		case sf::Event::Closed:
+	
+	while (auto ev = m_window.pollEvent()) {
+		// Closed
+		if (ev->is<sf::Event::Closed>()) {
 			m_running = false;
 			m_window.close();
-			break;
+			continue;
+		}
 
-		case sf::Event::KeyPressed:
-			if (ev.key.code == sf::Keyboard::Key::Escape) {
+		// Key pressed
+		if (const auto* key = ev->getIf<sf::Event::KeyPressed>()) {
+			
+			switch (key->scancode) {
+			case sf::Keyboard::Scancode::Escape:
 				m_running = false;
 				m_window.close();
-			}
+				break;
 
-			if (ev.key.code == sf::Keyboard::Key::R) { // full reset
+			case sf::Keyboard::Scancode::R: // full reset
 				m_animating = false;
 				m_foundOrDone = false;
 				m_paused = false;
@@ -79,17 +84,17 @@ void Game::processEvents() {
 				m_nodes(m_finishCell).Walkable = true;
 				m_quads.Set(m_startCell, sf::Color(0, 200, 0, 255));
 				m_quads.Set(m_finishCell, sf::Color(200, 0, 0, 255));
-			}
+				break;
 
-			if (ev.key.code == sf::Keyboard::Key::Space) { // start search
+			case sf::Keyboard::Scancode::Space: // start search
 				restartPathfinding();
 				m_animating = true;
 				m_foundOrDone = false;
 				m_paused = false;
 				m_animClock.restart();
-			}
+				break;
 
-			if (ev.key.code == sf::Keyboard::Key::P) { // pause/resume + restart if continuing
+			case sf::Keyboard::Scancode::P: // pause/resume + restart if continuing
 				if (m_animating && !m_foundOrDone) {
 					m_paused = !m_paused;
 
@@ -101,11 +106,13 @@ void Game::processEvents() {
 						m_animating = true;
 					}
 				}
-			}
-			break;
+				break;
 
-		default: break;
+			default:
+				break;
+			}
 		}
+		// You can handle other event types if needed (Resized, MouseButtonPressed, etc.)
 	}
 
 	// Allow mouse painting when animation is paused, not running yet, or after finished
@@ -135,7 +142,7 @@ void Game::processEvents() {
 				m_quads.Set(*cell, sf::Color(160, 160, 160, 160));
 			}
 
-			// left mouse = add wall
+			// left mouse = add wall (mouse polling still valid)
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 				paintCell(*cell, /*wall=*/true);
 			}
@@ -245,25 +252,25 @@ void Game::stepPathfinding() {
 	}
 
 	if (state == AnimatedPathfindState::Found) {
-    // Clear previous final path
-    m_finalPath.clear();
+		// Clear previous final path
+		m_finalPath.clear();
 
-    // Trace path from goal to start using Parent
-    Node* current = &goal;
-    while (current != nullptr && current != &start) {
-        m_finalPath.push_back(sf::Vector2u(current->x, current->y));
-        current = current->Parent; 
-    }
+		// Trace path from goal to start using Parent
+		Node* current = &goal;
+		while (current != nullptr && current != &start) {
+			m_finalPath.push_back(sf::Vector2u(current->x, current->y));
+			current = current->Parent;
+		}
 
-    // Add start cell at the end
-    m_finalPath.push_back(sf::Vector2u(start.x, start.y));
+		// Add start cell at the end
+		m_finalPath.push_back(sf::Vector2u(start.x, start.y));
 
-    // Reverse to get start - goal order
-    std::reverse(m_finalPath.begin(), m_finalPath.end());
+		// Reverse to get start - goal order
+		std::reverse(m_finalPath.begin(), m_finalPath.end());
 
-    m_pathDrawIndex = 0;   // start animating the path
-    return;
-}
+		m_pathDrawIndex = 0;   // start animating the path
+		return;
+	}
 
 	if (state == AnimatedPathfindState::NotFound) {
 		m_animating = false;
