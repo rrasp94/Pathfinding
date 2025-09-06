@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # 1. Checkout repo
+      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -20,20 +20,25 @@ jobs:
           git clone https://github.com/microsoft/vcpkg.git vcpkg
           .\vcpkg\bootstrap-vcpkg.bat
 
-      # 3. Install SFML 3.0.1
-      - name: Install SFML
-        run: |
-          .\vcpkg\vcpkg install
+      # 3. Install SFML 2.5.1
+      - name: Install SFML 2.5.1
+        run: .\vcpkg\vcpkg install
 
-      # 4. Configure CMake
+      # 4. Clean build folder (PowerShell)
+      - name: Clean build folder
+        shell: pwsh
+        run: |
+          if (Test-Path build) { Remove-Item -Recurse -Force build }
+
+      # 5. Configure CMake
       - name: Configure CMake
         run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}\vcpkg\scripts\buildsystems\vcpkg.cmake
 
-      # 5. Build project
+      # 6. Build project
       - name: Build
         run: cmake --build build --config Release
 
-      # 6. Upload build artefact
+      # 7. Upload build artefact
       - name: Upload build artefact
         uses: actions/upload-artifact@v4
         with:
