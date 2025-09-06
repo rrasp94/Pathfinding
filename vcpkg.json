@@ -5,7 +5,7 @@
   "dependencies": [
     {
       "name": "sfml",
-      "version": "2.5.1",
+      "version>=": "2.5.1",
       "features": ["window", "graphics", "audio", "network"]
     }
   ]
