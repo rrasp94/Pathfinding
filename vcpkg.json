@@ -1,8 +1,7 @@
 {
   "name": "pathfinding",
   "version-string": "1.0.0",
-  "dependencies": [{ "name": "sfml" }],
-  "vcpkg-configuration": {
-    "baseline": "2024-08-28"
-  }
+  "dependencies": [
+    { "name": "sfml" }
+  ]
 }
