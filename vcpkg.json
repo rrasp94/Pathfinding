@@ -1,10 +1,11 @@
 {
   "name": "pathfinding",
   "version": "1.0.0",
+  "builtin-baseline": "2024-12-01",
   "dependencies": [
     {
       "name": "sfml",
-      "version>=": "2.5.1",
+      "version": "2.5.1",
       "features": [ "window", "graphics", "audio", "network" ]
     }
   ]
