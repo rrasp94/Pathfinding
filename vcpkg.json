@@ -1,7 +1,11 @@
 {
   "name": "pathfinding",
-  "version-string": "1.0.0",
+  "version": "1.0.0",
   "dependencies": [
-    { "name": "sfml" }
+    {
+      "name": "sfml",
+      "version>=": "2.5.1",
+      "features": [ "window", "graphics", "audio", "network" ]
+    }
   ]
 }
