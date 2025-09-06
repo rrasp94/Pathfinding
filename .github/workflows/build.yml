@@ -20,20 +20,24 @@ jobs:
           git clone https://github.com/microsoft/vcpkg.git vcpkg
           .\vcpkg\bootstrap-vcpkg.bat
 
-      # 3. Install SFML 3.0.1
+      # 3. Install SFML and dependencies
       - name: Install SFML
         run: |
-          .\vcpkg\vcpkg install
+          .\vcpkg\vcpkg install 
 
-      # 4. Configure CMake
+      # 4. Clean build folder (to avoid old cache issues)
+      - name: Clean build folder
+        run: rmdir /s /q build || exit 0
+
+      # 5. Configure CMake
       - name: Configure CMake
         run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}\vcpkg\scripts\buildsystems\vcpkg.cmake
 
-      # 5. Build project
+      # 6. Build project
       - name: Build
         run: cmake --build build --config Release
 
-      # 6. Upload build artefact
+      # 7. Upload build artefact
       - name: Upload build artefact
         uses: actions/upload-artifact@v4
         with:
