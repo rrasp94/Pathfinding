@@ -5,8 +5,6 @@
 namespace priv {
 	class Renderer {
 	public:
-		Renderer()  = default;
-		~Renderer() = default;
 
 		void Init(sf::RenderWindow& window);
 
@@ -23,4 +21,4 @@ namespace priv {
 	};
 }
 
-inline priv::Renderer Renderer;
+

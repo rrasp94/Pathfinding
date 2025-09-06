@@ -16,7 +16,7 @@ Game::Game()
 
 void Game::init() {
 	// Attach renderer to window
-	Renderer.Init(m_window);
+	m_renderer.Init(m_window);
 
 	// Set a view covering the whole grid (fixes hover/mouse offset on resize)
 	sf::Vector2f size(
@@ -58,11 +58,20 @@ void Game::processEvents() {
 	while (m_window.pollEvent(ev)) {
 		switch (ev.type) {
 		case sf::Event::Closed:
-			m_running = false; m_window.close(); break;
+			m_running = false;
+			m_window.close();
+			break;
+
 		case sf::Event::KeyPressed:
-			if (ev.key.code == sf::Keyboard::Key::Escape) { m_running = false; m_window.close(); }
+			if (ev.key.code == sf::Keyboard::Key::Escape) {
+				m_running = false;
+				m_window.close();
+			}
+
 			if (ev.key.code == sf::Keyboard::Key::R) { // full reset
-				m_animating = false; m_foundOrDone = false;
+				m_animating = false;
+				m_foundOrDone = false;
+				m_paused = false;
 				m_nodes.Destroy();
 				m_nodes.Create();
 				m_quads.Reset();
@@ -71,38 +80,67 @@ void Game::processEvents() {
 				m_quads.Set(m_startCell, sf::Color(0, 200, 0, 255));
 				m_quads.Set(m_finishCell, sf::Color(200, 0, 0, 255));
 			}
-			if (ev.key.code == sf::Keyboard::Key::Space) {
+
+			if (ev.key.code == sf::Keyboard::Key::Space) { // start search
 				restartPathfinding();
 				m_animating = true;
 				m_foundOrDone = false;
+				m_paused = false;
 				m_animClock.restart();
 			}
+
+			if (ev.key.code == sf::Keyboard::Key::P) { // pause/resume + restart if continuing
+				if (m_animating && !m_foundOrDone) {
+					m_paused = !m_paused;
+
+					if (!m_paused) {
+						// user pressed P to continue the search
+						restartPathfinding();
+						m_animClock.restart();
+						m_foundOrDone = false;
+						m_animating = true;
+					}
+				}
+			}
 			break;
+
 		default: break;
 		}
 	}
 
-	if (!m_animating && !m_foundOrDone) {
-		// mouse painting (continuous while pressed)
+	// Allow mouse painting when animation is paused, not running yet, or after finished
+	if ((!m_animating || m_paused || m_foundOrDone)) {
 		if (auto cell = mouseToCell()) {
-			// un-hover previous
+			// un-hover previous cell
 			if (m_hoverCell && *m_hoverCell != *cell) {
 				const auto& last = *m_hoverCell;
-				// only clear hover if not wall, not path, not endpoints
 				auto& n = m_nodes(last);
-				if (n.Walkable && !n.Path && last != m_startCell && last != m_finishCell)
+
+				// only clear hover if not wall, not start/finish, not part of final path, and not visited
+				if (n.Walkable && !n.Visited && !n.Path &&
+					last != m_startCell && last != m_finishCell &&
+					std::find(m_finalPath.begin(), m_finalPath.end(), last) == m_finalPath.end())
+				{
 					m_quads.Set(last, sf::Color(0, 0, 0, 0));
+				}
 			}
 			m_hoverCell = *cell;
 
-			// set hover color (light gray) if walkable and not endpoints
+			// set hover color (light gray) if walkable, not endpoints, not part of final path, and not visited
 			auto& hn = m_nodes(*cell);
-			if (hn.Walkable && *cell != m_startCell && *cell != m_finishCell && !hn.Path)
+			if (hn.Walkable && !hn.Visited && !hn.Path &&
+				*cell != m_startCell && *cell != m_finishCell &&
+				std::find(m_finalPath.begin(), m_finalPath.end(), *cell) == m_finalPath.end())
+			{
 				m_quads.Set(*cell, sf::Color(160, 160, 160, 160));
+			}
 
+			// left mouse = add wall
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 				paintCell(*cell, /*wall=*/true);
 			}
+
+			// right mouse = remove wall
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)) {
 				paintCell(*cell, /*wall=*/false);
 			}
@@ -111,6 +149,9 @@ void Game::processEvents() {
 }
 
 void Game::update(float /*dt*/) {
+
+	if (m_paused) return; // skip updating while paused
+
 	if (m_animating && !m_foundOrDone) {
 		if (m_animClock.getElapsedTime().asSeconds() >= m_stepInterval) {
 			m_animClock.restart();
@@ -137,16 +178,16 @@ void Game::update(float /*dt*/) {
 
 void Game::render() {
 	// white background (Renderer::Clear uses white, see note below)
-	Renderer.Clear();
+	m_renderer.Clear();
 
 	// grid, walls, exploration/colors
-	m_quads.Render();
+	m_quads.Render(m_renderer);
 
 	// force start/finish colors on top every frame
 	m_quads.Set(m_startCell, sf::Color(0, 200, 0, 255));
 	m_quads.Set(m_finishCell, sf::Color(200, 0, 0, 255));
 
-	Renderer.Flush();
+	m_renderer.Flush();
 }
 
 std::optional<sf::Vector2u> Game::mouseToCell() const {

@@ -8,7 +8,7 @@
 
 class Pathfinder {
 public:
-	Pathfinder()  = default;
+
 	virtual ~Pathfinder() = default;
 
 	bool FindPath(Nodes& nodes, Node& start, Node& finish, QuadMap* quadMap = nullptr);
@@ -34,8 +34,6 @@ enum class AnimatedPathfindState {
 
 class AnimatedPathfinder : public Pathfinder {
 public:
-	AnimatedPathfinder()  = default;
-	~AnimatedPathfinder() = default;
 
 	std::pair<bool, AnimatedPathfindState> FindPath(Nodes& nodes, Node& start, Node& finish, QuadMap* quadMap = nullptr);
 	void Restart();

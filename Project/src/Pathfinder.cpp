@@ -3,7 +3,6 @@
 #include <set>
 
 #include "utilities/Functions.hpp"
-#include "core/Macros.hpp"
 
 
 // Pathfinder Definitions //
@@ -78,6 +77,7 @@ void Pathfinder::ColorNeighbourNodes(NeighbourNodes& nodes, QuadMap* quadMap) {
 		if (!n || !n->Walkable)
 			continue;
 
+		n->Visited = true;
 		quadMap->Set(sf::Vector2u(n->x, n->y), sf::Color(58, 186, 128, 220));
 	}
 }
@@ -161,8 +161,6 @@ bool Pathfinder::CheckOffset(int offsetX, int offsetY) {
 
 std::pair<bool, AnimatedPathfindState> AnimatedPathfinder::FindPath(Nodes& nodes, Node& start, Node& finish, QuadMap* quadMap) {
 	m_quadMap = quadMap;
-
-	DB_ASSERT(m_quadMap);
 
 	Reset(nodes, start);
 

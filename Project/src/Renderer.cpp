@@ -1,13 +1,9 @@
 #pragma once
 #include "core/Renderer.hpp"
 
-#include "core/Macros.hpp"
-
 using namespace priv;
 
 void Renderer::Init(sf::RenderWindow& window) {
-	// Renderer was initialized before
-	DB_ASSERT(!m_window);
 
 	m_window = &window;
 }

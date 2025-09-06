@@ -35,13 +35,13 @@ void QuadMap::Create(bool createGrid) {
 	}
 }
 
-void QuadMap::Render() {
+void QuadMap::Render(priv::Renderer& renderer) {
 	sf::RenderStates states;
 	states.texture = &s_defaultTexture;
 	states.transform.translate(m_position);
 
-	Renderer.Draw(m_Vertices.data(), m_Vertices.size(), sf::PrimitiveType::Triangles, states);
-	Renderer.Draw(m_GridVertices.data(), m_GridVertices.size(), sf::PrimitiveType::Lines, states);
+	renderer.Draw(m_Vertices.data(), m_Vertices.size(), sf::PrimitiveType::Triangles, states);
+	renderer.Draw(m_GridVertices.data(), m_GridVertices.size(), sf::PrimitiveType::Lines, states);
 }
 
 void QuadMap::Reset() {

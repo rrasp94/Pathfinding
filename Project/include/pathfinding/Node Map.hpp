@@ -12,8 +12,6 @@ typedef std::vector<Node> Nodes;
 
 class NodeMap {
 public:
-	NodeMap()  = default;
-	~NodeMap() = default;
 
 	void Create();
 	void Reset();

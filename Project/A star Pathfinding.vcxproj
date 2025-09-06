@@ -99,7 +99,6 @@
     <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\Global Variables.hpp" />
     <ClInclude Include="include\Quad Map.hpp" />
-    <ClInclude Include="include\core\Macros.hpp" />
     <ClInclude Include="include\core\Renderer.hpp" />
     <ClInclude Include="include\pathfinding\Node Map.hpp" />
     <ClInclude Include="include\pathfinding\Node.hpp" />

@@ -35,6 +35,7 @@ private:
 
 	// state
 	sf::RenderWindow m_window;
+	priv::Renderer   m_renderer;
 	QuadMap          m_quads;
 	NodeMap          m_nodes;
 	AnimatedPathfinder m_pathfinder;
@@ -54,6 +55,7 @@ private:
 	bool m_running = true;
 	bool m_animating = false;
 	bool m_foundOrDone = false;
+	bool m_paused = false;
 
 	std::vector<sf::Vector2u> m_finalPath;
 	size_t m_pathDrawIndex = 0;

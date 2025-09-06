@@ -3,42 +3,42 @@
 #include <cstdint>
 
 struct Node {
-	Node(uint32_t x, uint32_t y)
-		: x(x), y(y)
-	{ }
+    
+    uint32_t x = 0;
+    uint32_t y = 0;
 
-	~Node() = default;
+    bool Walkable = true;
+    bool Path = false;
+    bool Visited = false;
 
-	struct {
-		uint32_t x = 0;
-		uint32_t y = 0;
+    int FCost = -1;
+    int GCost = -1;
+    int HCost = -1;
 
-		bool Walkable = true;
-		bool Path	  = false;
+    Node* Parent = nullptr;
 
-		int FCost = -1;
-		int GCost = -1;
-		int HCost = -1;
+    Node(uint32_t x_, uint32_t y_)
+        : x(x_), y(y_)
+    {
+    }
 
-		Node* Parent = nullptr;
-	};
+    bool operator==(const Node& other) const {
+        return x == other.x && y == other.y;
+    }
 
-	bool operator == (const Node& other) const {
-		return x == other.x && y == other.y;
-	}
+    bool operator!=(const Node& other) const {
+        return !(*this == other);
+    }
 
-	bool operator != (const Node& other) const {
-		return x != other.x || y != other.y;
-	}
+    void Reset() {
+        Walkable = true;
+        Path = false;
+        Visited = false;
 
-	void Reset() {
-		Walkable = true;
-		Path = false;
+        FCost = -1;
+        GCost = -1;
+        HCost = -1;
 
-		FCost = -1;
-		GCost = -1;
-		HCost = -1;
-
-		Parent = nullptr;
-	}
+        Parent = nullptr;
+    }
 };

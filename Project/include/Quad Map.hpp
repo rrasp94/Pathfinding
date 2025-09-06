@@ -6,14 +6,14 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Graphics/RenderStates.hpp"
 
+#include "core/Renderer.hpp"
+
 class QuadMap {
 public:
-	QuadMap()  = default;
-	~QuadMap() = default;
 
 	void Create(bool createGrid = true);
 
-	void Render();
+	void Render(priv::Renderer& renderer);
 
 	void Reset();
 
