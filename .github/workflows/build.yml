@@ -20,9 +20,9 @@ jobs:
           git clone https://github.com/microsoft/vcpkg.git vcpkg
           .\vcpkg\bootstrap-vcpkg.bat
 
-      # 3. Install SFML 3.x
-      - name: Install SFML 3.x
-        run: .\vcpkg\vcpkg install
+      # 3. Install dependencies via manifest (vcpkg.json)
+      - name: Install dependencies
+        run: .\vcpkg\vcpkg install --triplet x64-windows-static
 
       # 4. Clean build folder (PowerShell)
       - name: Clean build folder
@@ -32,7 +32,10 @@ jobs:
 
       # 5. Configure CMake
       - name: Configure CMake
-        run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static
+        run: cmake -B build -S . `
+          -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}\vcpkg\scripts\buildsystems\vcpkg.cmake `
+          -DVCPKG_TARGET_TRIPLET=x64-windows-static `
+          -DCMAKE_BUILD_TYPE=Release
 
       # 6. Build project
       - name: Build
