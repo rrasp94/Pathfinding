@@ -14,18 +14,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Setup vcpkg
-      - name: Setup vcpkg
-        uses: lukka/run-vcpkg@v11
-
-      # 3. Install dependencies
-      - name: Install dependencies
+      # 2. Clone vcpkg
+      - name: Clone vcpkg
         run: |
-          ./vcpkg/vcpkg install sfml
+          git clone https://github.com/microsoft/vcpkg.git vcpkg
+          .\vcpkg\bootstrap-vcpkg.bat
+
+      # 3. Install SFML 3.0.1
+      - name: Install SFML
+        run: |
+          .\vcpkg\vcpkg install sfml:x64-windows
 
       # 4. Configure CMake
       - name: Configure CMake
-        run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+        run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}\vcpkg\scripts\buildsystems\vcpkg.cmake
 
       # 5. Build project
       - name: Build
