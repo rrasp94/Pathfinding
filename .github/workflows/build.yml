@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # 1. Checkout repo
+      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -20,9 +20,9 @@ jobs:
           git clone https://github.com/microsoft/vcpkg.git vcpkg
           .\vcpkg\bootstrap-vcpkg.bat
 
-      # 3. Install SFML and other dependencies
-      - name: Install SFML
-        run: .\vcpkg\vcpkg install
+      # 3. Install SFML 2.5.1
+      - name: Install SFML 2.5.1
+        run: .\vcpkg\vcpkg install sfml[window,graphics,audio,network]:x64-windows@2.5.1
 
       # 4. Clean build folder (PowerShell)
       - name: Clean build folder
