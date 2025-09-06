@@ -4,7 +4,7 @@ project(Pathfinding LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(SFML CONFIG REQUIRED COMPONENTS Window Graphics Audio Network)
+find_package(SFML 2.5 COMPONENTS graphics system REQUIRED)
 
 include_directories(${PROJECT_SOURCE_DIR}/Project/include)
 
@@ -13,8 +13,6 @@ file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/Project/src/*.cpp")
 add_executable(pathfinding ${SOURCES})
 
 target_link_libraries(pathfinding PRIVATE
-    SFML::Window
-    SFML::Graphics
-    SFML::Audio
-    SFML::Network
+    sfml-graphics
+    sfml-system
 )
