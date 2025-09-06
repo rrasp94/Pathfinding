@@ -7,10 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest]
+    runs-on: windows-latest
 
     steps:
       # 1. Checkout repo
@@ -19,7 +16,7 @@ jobs:
 
       # 2. Setup vcpkg
       - name: Setup vcpkg
-        uses: microsoft/vcpkg-action@v2
+        uses: lukka/run-vcpkg@v2024.9.12
 
       # 3. Configure CMake
       - name: Configure CMake
@@ -29,11 +26,9 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
-      # 5. Upload build artefacts
+      # 5. Upload build artefact
       - name: Upload build artefact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: pathfinding-${{ runner.os }}
-          path: |
-            build/Release/pathfinding*      # Windows
-            build/pathfinding*              # Linux
+          name: pathfinding-windows
+          path: build/Release/pathfinding.exe
