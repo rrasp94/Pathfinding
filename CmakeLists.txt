@@ -10,6 +10,9 @@ if(MSVC)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>" CACHE STRING "" FORCE)
 endif()
 
+# Define SFML_STATIC for static linking
+add_definitions(-DSFML_STATIC)
+
 # SFML 3.x
 find_package(SFML CONFIG REQUIRED COMPONENTS Graphics System)
 
@@ -22,8 +25,8 @@ file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/Project/src/*.cpp")
 # Create executable
 add_executable(pathfinding ${SOURCES})
 
-# Link libraries
+# Link static SFML libraries
 target_link_libraries(pathfinding PRIVATE
-    SFML::Graphics
-    SFML::System
+    sfml-graphics-s
+    sfml-system-s
 )
