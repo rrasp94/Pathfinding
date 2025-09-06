@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # SFML 3.x
-find_package(SFML COMPONENTS graphics system REQUIRED)
+find_package(SFML CONFIG REQUIRED COMPONENTS Graphics System)
 
 include_directories(${PROJECT_SOURCE_DIR}/Project/include)
 
@@ -14,6 +14,6 @@ file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/Project/src/*.cpp")
 add_executable(pathfinding ${SOURCES})
 
 target_link_libraries(pathfinding PRIVATE
-    sfml-graphics
-    sfml-system
+    SFML::Graphics
+    SFML::System
 )
