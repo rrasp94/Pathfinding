@@ -22,7 +22,7 @@ jobs:
 
       # 3. Install SFML 3.x
       - name: Install SFML 3.x
-        run: .\vcpkg\vcpkg install sfml:x64-windows-static
+        run: .\vcpkg\vcpkg install
 
       # 4. Clean build folder (PowerShell)
       - name: Clean build folder
