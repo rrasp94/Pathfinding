@@ -1,15 +1,25 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.22)
 project(Pathfinding LANGUAGES CXX)
 
-# Standard C++
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# SFML 3
-find_package(SFML 3 REQUIRED COMPONENTS system window graphics audio)
+# -DCMAKE_TOOLCHAIN_FILE=path/to/vcpkg/scripts/buildsystems/vcpkg.cmake
 
-file(GLOB SOURCES "src/*.cpp")
+find_package(SFML CONFIG REQUIRED COMPONENTS Window Graphics Audio Network)
 
-add_executable(pathfinding ${SOURCES})
+add_executable(pathfinding
+    src/main.cpp
+    src/Game.cpp
+    src/NodeMap.cpp
+    src/Pathfinder.cpp
+    src/QuadMap.cpp
+    src/Renderer.cpp
+)
 
-target_link_libraries(pathfinding PRIVATE sfml-system sfml-window sfml-graphics sfml-audio)
+target_link_libraries(pathfinding PRIVATE
+    SFML::Window
+    SFML::Graphics
+    SFML::Audio
+    SFML::Network
+)
