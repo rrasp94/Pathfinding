@@ -106,8 +106,8 @@
     <ClInclude Include="include\utilities\Functions.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\NodeMap.cpp" />
     <ClCompile Include="src\Pathfinder.cpp" />
     <ClCompile Include="src\QuadMap.cpp" />
