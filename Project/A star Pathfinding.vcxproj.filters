@@ -21,16 +21,16 @@
     <ClInclude Include="include\Game.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Global Variables.hpp">
+    <ClInclude Include="include\GlobalVariables.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Quad Map.hpp">
+    <ClInclude Include="include\QuadMap.hpp">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\core\Renderer.hpp">
       <Filter>include\core</Filter>
     </ClInclude>
-    <ClInclude Include="include\pathfinding\Node Map.hpp">
+    <ClInclude Include="include\pathfinding\NodeMap.hpp">
       <Filter>include\pathfinding</Filter>
     </ClInclude>
     <ClInclude Include="include\pathfinding\Node.hpp">
@@ -48,13 +48,13 @@
     <ClCompile Include="src\Game.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Node Map.cpp">
+    <ClCompile Include="src\NodeMap.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Pathfinder.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Quad Map.cpp">
+    <ClCompile Include="src\QuadMap.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer.cpp">

@@ -4,7 +4,7 @@
 #include "SFML/System/Vector2.hpp"
 #include "SFML/System/Vector3.hpp"
 
-#include "Global Variables.hpp"
+#include "GlobalVariables.hpp"
 
 constexpr double PI = 3.14159265359;
 

@@ -4,7 +4,7 @@
 
 #include "Node.hpp"
 
-#include "Global Variables.hpp"
+#include "GlobalVariables.hpp"
 
 #include "SFML/System/Vector2.hpp"
 

@@ -1,6 +1,6 @@
-#include "pathfinding/Node Map.hpp"
+#include "pathfinding/NodeMap.hpp"
 
-#include "Global Variables.hpp"
+#include "GlobalVariables.hpp"
 
 #include "utilities/Functions.hpp"
 

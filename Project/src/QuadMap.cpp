@@ -1,4 +1,4 @@
-#include "Quad Map.hpp"
+#include "QuadMap.hpp"
 
 #include "core/Renderer.hpp"
 

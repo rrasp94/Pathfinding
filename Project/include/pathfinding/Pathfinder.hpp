@@ -3,8 +3,8 @@
 #include <array>
 #include <set>
 
-#include "Node Map.hpp"
-#include "Quad Map.hpp"
+#include "NodeMap.hpp"
+#include "QuadMap.hpp"
 
 class Pathfinder {
 public:

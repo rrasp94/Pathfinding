@@ -6,9 +6,9 @@
 
 #include "core/Renderer.hpp"
 
-#include "pathfinding/Node Map.hpp"
+#include "pathfinding/NodeMap.hpp"
 #include "pathfinding/Pathfinder.hpp"
-#include "Quad Map.hpp"
+#include "QuadMap.hpp"
 
 class Game {
 public:

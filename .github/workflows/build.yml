@@ -1,0 +1,39 @@
+name: Build Pathfinding
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+
+    steps:
+      # 1. Checkout repo
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Setup vcpkg
+      - name: Setup vcpkg
+        uses: microsoft/vcpkg-action@v2
+
+      # 3. Configure CMake
+      - name: Configure CMake
+        run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+
+      # 4. Build project
+      - name: Build
+        run: cmake --build build --config Release
+
+      # 5. Upload build artefacts
+      - name: Upload build artefact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pathfinding-${{ runner.os }}
+          path: |
+            build/Release/pathfinding*      # Windows
+            build/pathfinding*              # Linux

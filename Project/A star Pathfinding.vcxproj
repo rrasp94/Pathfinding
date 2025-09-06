@@ -97,10 +97,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\Game.hpp" />
-    <ClInclude Include="include\Global Variables.hpp" />
-    <ClInclude Include="include\Quad Map.hpp" />
+    <ClInclude Include="include\GlobalVariables.hpp" />
+    <ClInclude Include="include\QuadMap.hpp" />
     <ClInclude Include="include\core\Renderer.hpp" />
-    <ClInclude Include="include\pathfinding\Node Map.hpp" />
+    <ClInclude Include="include\pathfinding\NodeMap.hpp" />
     <ClInclude Include="include\pathfinding\Node.hpp" />
     <ClInclude Include="include\pathfinding\Pathfinder.hpp" />
     <ClInclude Include="include\utilities\Functions.hpp" />
@@ -108,9 +108,9 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\Node Map.cpp" />
+    <ClCompile Include="src\NodeMap.cpp" />
     <ClCompile Include="src\Pathfinder.cpp" />
-    <ClCompile Include="src\Quad Map.cpp" />
+    <ClCompile Include="src\QuadMap.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
