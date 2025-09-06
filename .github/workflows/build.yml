@@ -32,11 +32,7 @@ jobs:
 
       # 5. Configure CMake
       - name: Configure CMake
-        run: cmake -B build -S . `
-          -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}\vcpkg\scripts\buildsystems\vcpkg.cmake `
-          -DVCPKG_TARGET_TRIPLET=x64-windows-static `
-          -DCMAKE_BUILD_TYPE=Release
-
+        run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows
       # 6. Build project
       - name: Build
         run: cmake --build build --config Release
