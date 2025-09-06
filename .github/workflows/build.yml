@@ -22,7 +22,7 @@ jobs:
 
       # 3. Install SFML 2.5.1
       - name: Install SFML 2.5.1
-        run: .\vcpkg\vcpkg install sfml[window,graphics,audio,network]:x64-windows@2.5.1
+        run: .\vcpkg\vcpkg install
 
       # 4. Clean build folder (PowerShell)
       - name: Clean build folder
