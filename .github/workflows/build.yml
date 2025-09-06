@@ -20,14 +20,15 @@ jobs:
           git clone https://github.com/microsoft/vcpkg.git vcpkg
           .\vcpkg\bootstrap-vcpkg.bat
 
-      # 3. Install SFML and dependencies
+      # 3. Install SFML and other dependencies
       - name: Install SFML
-        run: |
-          .\vcpkg\vcpkg install 
+        run: .\vcpkg\vcpkg install
 
-      # 4. Clean build folder (to avoid old cache issues)
+      # 4. Clean build folder (PowerShell)
       - name: Clean build folder
-        run: rmdir /s /q build || exit 0
+        shell: pwsh
+        run: |
+          if (Test-Path build) { Remove-Item -Recurse -Force build }
 
       # 5. Configure CMake
       - name: Configure CMake
