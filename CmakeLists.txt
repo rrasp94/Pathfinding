@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(SFML CONFIG REQUIRED COMPONENTS Window Graphics Audio Network)
 
-file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES "Project/src/*.cpp")
 
 add_executable(pathfinding ${SOURCES})
 
