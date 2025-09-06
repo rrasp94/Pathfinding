@@ -5,8 +5,7 @@
   "dependencies": [
     {
       "name": "sfml",
-      "default-features": false,
-      "features": ["graphics", "window", "system", "audio"]
+      "features": [ "graphics", "system" ]
     }
   ]
 }
