@@ -2,15 +2,12 @@ name: Build Pathfinding
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest, ubuntu-latest]
+    runs-on: windows-latest
 
     steps:
       # 1. Checkout repo
@@ -19,21 +16,24 @@ jobs:
 
       # 2. Setup vcpkg
       - name: Setup vcpkg
-        uses: microsoft/vcpkg-action@v2
+        uses: lukka/run-vcpkg@v11
 
-      # 3. Configure CMake
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: |
+          ./vcpkg/vcpkg install sfml
+
+      # 4. Configure CMake
       - name: Configure CMake
         run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
 
-      # 4. Build project
+      # 5. Build project
       - name: Build
         run: cmake --build build --config Release
 
-      # 5. Upload build artefacts
+      # 6. Upload build artefact
       - name: Upload build artefact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: pathfinding-${{ runner.os }}
-          path: |
-            build/Release/pathfinding*      # Windows
-            build/pathfinding*              # Linux
+          name: pathfinding-windows
+          path: build/Release/pathfinding.exe
