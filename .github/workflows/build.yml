@@ -23,7 +23,7 @@ jobs:
       # 3. Install SFML 3.0.1
       - name: Install SFML
         run: |
-          .\vcpkg\vcpkg install sfml:x64-windows
+          .\vcpkg\vcpkg install
 
       # 4. Configure CMake
       - name: Configure CMake
