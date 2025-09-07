@@ -6,27 +6,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Force static CRT on MSVC
 if(MSVC)
-    # /MT for Release, /MTd for Debug
+    # /MT for Release, /MTd za Debug
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>" CACHE STRING "" FORCE)
 endif()
 
-# Define SFML_STATIC for static linking
-add_definitions(-DSFML_STATIC)
-
-# SFML 3.x
+# SFML 3.x preko vcpkg
 find_package(SFML CONFIG REQUIRED COMPONENTS Graphics System)
 
-# Include directories
+# Include tvoje header-e
 include_directories(${PROJECT_SOURCE_DIR}/Project/include)
 
 # Source files
 file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/Project/src/*.cpp")
 
-# Create executable
+# Executable
 add_executable(pathfinding ${SOURCES})
 
-# Link static SFML libraries
+# Link SFML targets (vcpkg zna gdje su)
 target_link_libraries(pathfinding PRIVATE
-    sfml-graphics-s
-    sfml-system-s
+    SFML::Graphics
+    SFML::System
 )
