@@ -6,21 +6,10 @@
 
 #include "GlobalVariables.hpp"
 
-constexpr double PI = 3.14159265359;
 
-template <typename T>
-inline T Lerp(T x, T y, float t) {
-	if (t > 1.0f)
-		return y;
-	else if (t < 0.0f)
-		return x;
-
-	return x * (1.0f - t) + y * t;
-}
-
-template<typename T, typename O>
-inline bool Contains(const T& map, const O& object) {
-	return map.find(object) != map.end();
+template<typename T>
+inline bool Contains(const T& container, const typename T::key_type& object) {
+	return container.find(object) != container.end();
 }
 
 inline uint32_t In2D(uint32_t x = 0, uint32_t y = 0, uint32_t sizeX = global::NODE_COUNT.x) {

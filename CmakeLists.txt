@@ -10,10 +10,10 @@ if(MSVC)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>" CACHE STRING "" FORCE)
 endif()
 
-# SFML 3.x preko vcpkg
+# SFML 3.x 
 find_package(SFML CONFIG REQUIRED COMPONENTS Graphics System)
 
-# Include tvoje header-e
+# Include headers
 include_directories(${PROJECT_SOURCE_DIR}/Project/include)
 
 # Source files
@@ -22,7 +22,7 @@ file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/Project/src/*.cpp")
 # Executable
 add_executable(pathfinding ${SOURCES})
 
-# Link SFML targets (vcpkg zna gdje su)
+# Link SFML targets 
 target_link_libraries(pathfinding PRIVATE
     SFML::Graphics
     SFML::System
