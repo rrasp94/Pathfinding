@@ -23,12 +23,12 @@ jobs:
           vcpkgJsonGlob: "**/vcpkg.json"
           triplet: x64-windows-static
 
-      # 3. Debug VCPKG_ROOT (da provjerimo putanju)
+      # 3. Debug VCPKG_ROOT
       - name: Debug VCPKG_ROOT
         run: echo "VCPKG_ROOT=$env:VCPKG_ROOT"
         shell: pwsh
 
-      # 4. Clean build folder (PowerShell)
+      # 4. Clean build folder
       - name: Clean build folder
         shell: pwsh
         run: |
@@ -37,8 +37,9 @@ jobs:
       # 5. Configure CMake
       - name: Configure CMake
         run: |
-          echo "Using toolchain: $env:VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake"
-          cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=$env:VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static
+          $toolchain = Join-Path $env:VCPKG_ROOT 'scripts/buildsystems/vcpkg.cmake'
+          echo "Using toolchain: $toolchain"
+          cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE="$toolchain" -DVCPKG_TARGET_TRIPLET=x64-windows-static
         shell: pwsh
 
       # 6. Build project
