@@ -2,7 +2,8 @@ name: Build Pathfinding
 
 on:
   push:
-    branches: [master]
+    tags:
+      - "v*"
   pull_request:
 
 jobs:
@@ -33,17 +34,18 @@ jobs:
       # 5. Configure CMake
       - name: Configure CMake
         run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static
+
       # 6. Build project
       - name: Build
         run: cmake --build build --config Release
 
-      # 7. Create a new release
+      # 7. Create a new release (koristi tag koji je pushan)
       - name: Create Release and Upload EXE
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v1.0.0
-          name: Pathfinding v1.0.0
+          tag_name: ${{ github.ref_name }} # uzme ime taga npr. v1.0.0
+          name: Pathfinding ${{ github.ref_name }}
           body: Automated build release
           files: build/Release/pathfinding.exe
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # koristi default token s write permissions
