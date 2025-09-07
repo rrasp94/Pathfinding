@@ -38,14 +38,9 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
-      # 6. Create a release only if push is a tag
-      - name: Create Release and Upload EXE
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v1
+      # 6. Upload build artefact (EXE)
+      - name: Upload build artefact
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: ${{ github.ref_name }}
-          name: Pathfinding ${{ github.ref_name }}
-          body: Automated build release
-          files: build/Release/pathfinding.exe
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: pathfinding-windows
+          path: build/Release/pathfinding.exe
