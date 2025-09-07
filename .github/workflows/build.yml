@@ -43,3 +43,21 @@ jobs:
         with:
           name: pathfinding-windows
           path: build/Release/pathfinding.exe
+
+      # 8. Create a new release (if it doesn't exist) and upload EXE
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v1.0.0
+          name: Pathfinding v1.0.0
+          body: Automated build release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload EXE to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/Release/pathfinding.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
