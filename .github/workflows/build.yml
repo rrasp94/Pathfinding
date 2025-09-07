@@ -24,21 +24,25 @@ jobs:
           vcpkgJsonGlob: "**/vcpkg.json"
           triplet: x64-windows-static
 
-      # 3. Clean build folder (PowerShell)
+      # 3. Debug vcpkgRoot (da provjerimo putanju)
+      - name: Debug vcpkgRoot
+        run: echo "vcpkgRoot=${{ steps.setup-vcpkg.outputs.vcpkgRoot }}"
+
+      # 4. Clean build folder (PowerShell)
       - name: Clean build folder
         shell: pwsh
         run: |
           if (Test-Path build) { Remove-Item -Recurse -Force build }
 
-      # 4. Configure CMake
+      # 5. Configure CMake
       - name: Configure CMake
-        run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE="${{ steps.setup-vcpkg.outputs.vcpkgRoot }}\scripts\buildsystems\vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows-static
+        run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=${{ steps.setup-vcpkg.outputs.vcpkgRoot }}/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static
 
-      # 5. Build project
+      # 6. Build project
       - name: Build
         run: cmake --build build --config Release
 
-      # 6. Upload build artefact (EXE)
+      # 7. Upload build artefact (EXE)
       - name: Upload build artefact
         uses: actions/upload-artifact@v4
         with:
