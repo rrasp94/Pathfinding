@@ -18,6 +18,7 @@ jobs:
 
       # 2. Setup vcpkg using official action
       - name: Setup vcpkg
+        id: setup-vcpkg
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgJsonGlob: "**/vcpkg.json"
@@ -31,8 +32,7 @@ jobs:
 
       # 4. Configure CMake
       - name: Configure CMake
-        shell: pwsh
-        run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=$env:VCPKG_ROOT\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static
+        run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=${{ steps.setup-vcpkg.outputs.vcpkgRoot }}/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static
 
       # 5. Build project
       - name: Build
