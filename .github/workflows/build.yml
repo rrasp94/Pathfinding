@@ -18,15 +18,15 @@ jobs:
 
       # 2. Setup vcpkg using official action
       - name: Setup vcpkg
-        id: setup-vcpkg
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgJsonGlob: "**/vcpkg.json"
           triplet: x64-windows-static
 
-      # 3. Debug vcpkgRoot (da provjerimo putanju)
-      - name: Debug vcpkgRoot
-        run: echo "vcpkgRoot=${{ steps.setup-vcpkg.outputs.vcpkgRoot }}"
+      # 3. Debug VCPKG_ROOT (da provjerimo putanju)
+      - name: Debug VCPKG_ROOT
+        run: echo "VCPKG_ROOT=$env:VCPKG_ROOT"
+        shell: pwsh
 
       # 4. Clean build folder (PowerShell)
       - name: Clean build folder
@@ -36,7 +36,10 @@ jobs:
 
       # 5. Configure CMake
       - name: Configure CMake
-        run: cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=${{ steps.setup-vcpkg.outputs.vcpkgRoot }}/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static
+        run: |
+          echo "Using toolchain: $env:VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake"
+          cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=$env:VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static
+        shell: pwsh
 
       # 6. Build project
       - name: Build
