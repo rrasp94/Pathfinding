@@ -39,13 +39,13 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
-      # 7. Create a new release (koristi tag koji je pushan)
+      # 7. Create a new release
       - name: Create Release and Upload EXE
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref_name }} # uzme ime taga npr. v1.0.0
+          tag_name: ${{ github.ref_name }} 
           name: Pathfinding ${{ github.ref_name }}
           body: Automated build release
           files: build/Release/pathfinding.exe
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # koristi default token s write permissions
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
