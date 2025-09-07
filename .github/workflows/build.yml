@@ -4,7 +4,7 @@ on:
   push:
     branches: [master]
     tags:
-      - 'v*'
+      - "v*"
   pull_request:
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
           vcpkgJsonGlob: "**/vcpkg.json"
           triplet: x64-windows-static
 
-      # 3. Clean build folder (PowerShell)
+      # 3. Clean build folder
       - name: Clean build folder
         shell: pwsh
         run: |
@@ -37,26 +37,14 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
-<<<<<<< HEAD
-      # 7. Create a new release
-=======
-      # 6. Create a new release (only if push is a tag)
->>>>>>> 233c850 (ispravak)
+      # 6. Create a release only if push is a tag
       - name: Create Release and Upload EXE
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
-<<<<<<< HEAD
-          tag_name: ${{ github.ref_name }} 
-=======
           tag_name: ${{ github.ref_name }}
->>>>>>> 233c850 (ispravak)
           name: Pathfinding ${{ github.ref_name }}
           body: Automated build release
           files: build/Release/pathfinding.exe
         env:
-<<<<<<< HEAD
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-=======
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
->>>>>>> 233c850 (ispravak)
