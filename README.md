@@ -101,3 +101,9 @@ opengl32.lib<br>
 **Prebuilt executables**
 
 You can download the latest Pathfinding Visualizer EXE from the GitHub Release here: **[Download EXE](https://github.com/rrasp94/Pathfinding/releases/tag/master)**
+
+![Pathfinding1](images/screenshot1.png)
+
+![Pathfinding2](images/screenshot2.png)
+
+![Pathfinding3](images/screenshot3.png)
