@@ -42,7 +42,6 @@ jobs:
           $toolchain = Join-Path $env:VCPKG_ROOT 'scripts/buildsystems/vcpkg.cmake'
           echo "Using toolchain: $toolchain"
           cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE="$toolchain" -DVCPKG_TARGET_TRIPLET=x64-windows-static
-        shell: pwsh
 
       # 6. Build project
       - name: Build
